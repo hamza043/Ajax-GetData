@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript" src="./Jquery/jquery.js"></script>
+</head>
+<body>
+    <h1>Ajax Fetch Data</h1>
+
+    <div id="abc">
+        
+    </div>
+    <div>
+        <label>Name: </label><input type="text" id="name">
+    <button id="btn">Submit</button>
+</div>
+
+
+
+<script>
+    $(document).ready(function(){
+        function loadfunc(){
+            $.ajax({
+                url : "ajax.php",
+                type : "POST",
+                success : function(data){
+                    $("#abc").html(data);
+                }
+            });
+        }
+        loadfunc();
+
+        $("#btn").on("click", function(e){
+            e.preventDefault();
+            var fname = $("#name").val();
+
+            $.ajax({
+                url : "insert.php",
+                type : "POST",
+                data : {f_name:fname},
+                success : function(data){
+                    if(data == 1){
+                        loadfunc();
+                    }
+                    else{
+                        alert("Record can't be insert");
+                    }
+                }
+            });
+        })
+    });
+    
+    
+    </script>
+
+
+</body>
+</html>
